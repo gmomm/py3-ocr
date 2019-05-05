@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+LABEL maintainer="gregoriomomm@gmail.com"
+
 ARG BUILD_PACKAGES1="   \
     build-essential     \
     apt-utils           \
