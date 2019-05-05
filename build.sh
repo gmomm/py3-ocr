@@ -11,10 +11,6 @@ OPENCV_CORE="opencv-4.1.0.tar.gz"
 OPENCV_CONTRIB="opencv-contrib-4.1.0.tar.gz"
 
 
-if [ ! -d ./. ]; then
-    mkdir ./.
-fi
-
 if [ ! -f ././${LEPTONICA} ]; then
     echo "leptonica not found, downloading tarball"
     curl -L -o ././${LEPTONICA} http://www.leptonica.org/source/leptonica-1.78.0.tar.gz 
