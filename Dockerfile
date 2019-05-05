@@ -65,7 +65,7 @@ WORKDIR /tmp/workdir
 
 
 RUN curl -L -o ./${OPENCV_CORE} https://github.com/opencv/opencv/archive/4.1.0.tar.gz \
- && tar  ./${OPENCV_CORE} zxvf  \
+ && tar zxvf ./${OPENCV_CORE}   \
  && curl -L -o ./${OPENCV_CONTRIB} https://github.com/opencv/opencv_contrib/archive/4.1.0.tar.gz \
  && tar zxvf ./${OPENCV_CONTRIB} \
  && curl -L -o ./${LEPTONICA} http://www.leptonica.org/source/leptonica-1.78.0.tar.gz \
