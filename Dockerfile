@@ -71,9 +71,9 @@ RUN curl -L -o ./${OPENCV_CORE} https://github.com/opencv/opencv/archive/4.1.0.t
  && curl -L -o ./${LEPTONICA} http://www.leptonica.org/source/leptonica-1.78.0.tar.gz \
  && tar zxvf ./${LEPTONICA} \
  && curl -L -o ./${TESSERACT} https://github.com/tesseract-ocr/tesseract/archive/master.tar.gz \
- && tar zxvf ./${TESSERACT}
- && curl -L -o ./${TESSERACT_MODEL} https://github.com/tesseract-ocr/tessdata/raw/master/por.traineddata \
- && curl -L -o ./${TESSERACT_MODEL} https://github.com/tesseract-ocr/tessdata/raw/master/eng.traineddata \
+ && tar zxvf ./${TESSERACT} \
+ && curl -L -o ./${TESSERACT_MODEL1} https://github.com/tesseract-ocr/tessdata/raw/master/por.traineddata \
+ && curl -L -o ./${TESSERACT_MODEL2} https://github.com/tesseract-ocr/tessdata/raw/master/eng.traineddata 
 
 # build and install opencv
 RUN cd opencv-4.1.0 \
