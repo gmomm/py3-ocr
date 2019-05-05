@@ -27,8 +27,8 @@ ARG BUILD_PACKAGES2="   \
     
 ARG LEPTONICA="leptonica-1.78.0.tar.gz" 
 ARG TESSERACT="tesseract-master.tar.gz"
-ARG TESSERACT_MODEL1="eng.traineddata"
-ARG TESSERACT_MODEL2="por.traineddata"
+ARG TESSERACT_MODEL1="por.traineddata"
+ARG TESSERACT_MODEL2="eng.traineddata"
 ARG OPENCV_CORE="opencv-4.1.0.tar.gz"
 ARG OPENCV_CONTRIB="opencv-contrib-4.1.0.tar.gz"
 
@@ -55,10 +55,9 @@ ARG EXTRA_PACKAGES="autotools-dev \
 RUN apt-get update \
  && apt-get upgrade  -y \
  && apt-get install -y --no-install-recommends $BUILD_PACKAGES1 $BUILD_PACKAGES2 \ 
- && apt-get install -y --no-install-recommends python3.6-dev python3-pip
- 
-RUN pip3 install --upgrade pip 
-RUN pip3 install numpy scipy setuptools
+ && apt-get install -y --no-install-recommends python3.6-dev python3-pip \
+ && pip3 install --upgrade pip \
+ && pip3 install numpy scipy setuptools
 
 RUN mkdir -p /tmp/workdir
 WORKDIR /tmp/workdir
@@ -71,9 +70,10 @@ RUN curl -L -o ./${OPENCV_CORE} https://github.com/opencv/opencv/archive/4.1.0.t
  && curl -L -o ./${LEPTONICA} http://www.leptonica.org/source/leptonica-1.78.0.tar.gz \
  && tar zxvf ./${LEPTONICA} \
  && curl -L -o ./${TESSERACT} https://github.com/tesseract-ocr/tesseract/archive/master.tar.gz \
- && tar zxvf ./${TESSERACT} \
- && curl -L -o ./${TESSERACT_MODEL1} https://github.com/tesseract-ocr/tessdata/raw/master/por.traineddata \
- && curl -L -o ./${TESSERACT_MODEL2} https://github.com/tesseract-ocr/tessdata/raw/master/eng.traineddata 
+ && tar zxvf ./${TESSERACT} 
+ 
+RUN curl -L -o ./${TESSERACT_MODEL1} https://github.com/tesseract-ocr/tessdata/raw/master/${TESSERACT_MODEL1} \
+ && curl -L -o ./${TESSERACT_MODEL2} https://github.com/tesseract-ocr/tessdata/raw/master/${TESSERACT_MODEL2}
 
 # build and install opencv
 RUN cd opencv-4.1.0 \
