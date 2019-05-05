@@ -4,6 +4,7 @@ LABEL maintainer="gregoriomomm@gmail.com"
 
 ARG BUILD_PACKAGES1="   \
     build-essential     \
+    curl                \
     apt-utils           \
     cmake               \
     gfortran            \
@@ -22,10 +23,15 @@ ARG BUILD_PACKAGES2="   \
     automake                    \
     g++                         \
     libtool                     \
-    libjpeg8-dev                \
-    libtiff5-dev                \
-    pkg-config                  \
     zlib1g-dev                  "
+    
+ARG LEPTONICA="leptonica-1.78.0.tar.gz" 
+ARG TESSERACT="tesseract-master.tar.gz"
+ARG TESSERACT_MODEL1="eng.traineddata"
+ARG TESSERACT_MODEL2="por.traineddata"
+ARG OPENCV_CORE="opencv-4.1.0.tar.gz"
+ARG OPENCV_CONTRIB="opencv-contrib-4.1.0.tar.gz"
+
 
 # Extra build packages installed automatically that we wish to remove
 
@@ -48,20 +54,26 @@ ARG EXTRA_PACKAGES="autotools-dev \
 
 RUN apt-get update \
  && apt-get upgrade  -y \
- && apt-get install -y --no-install-recommends $BUILD_PACKAGES1 \
- && apt-get install -y --no-install-recommends $BUILD_PACKAGES2 \ 
- && apt-get install -y --no-install-recommends python3.6-dev  python3-pip
+ && apt-get install -y --no-install-recommends $BUILD_PACKAGES1 $BUILD_PACKAGES2 \ 
+ && apt-get install -y --no-install-recommends python3.6-dev python3-pip
  
 RUN pip3 install --upgrade pip 
 RUN pip3 install numpy scipy setuptools
 
 RUN mkdir -p /tmp/workdir
 WORKDIR /tmp/workdir
-    
-ADD opencv-contrib-4.1.0.tar.gz .
-ADD opencv-4.1.0.tar.gz .
-ADD ./leptonica-1.78.0.tar.gz .
-ADD ./tesseract-master.tar.gz .
+
+
+RUN curl -L -o ./${OPENCV_CORE} https://github.com/opencv/opencv/archive/4.1.0.tar.gz \
+ && tar  ./${OPENCV_CORE} zxvf  \
+ && curl -L -o ./${OPENCV_CONTRIB} https://github.com/opencv/opencv_contrib/archive/4.1.0.tar.gz \
+ && tar zxvf ./${OPENCV_CONTRIB} \
+ && curl -L -o ./${LEPTONICA} http://www.leptonica.org/source/leptonica-1.78.0.tar.gz \
+ && tar zxvf ./${LEPTONICA} \
+ && curl -L -o ./${TESSERACT} https://github.com/tesseract-ocr/tesseract/archive/master.tar.gz \
+ && tar zxvf ./${TESSERACT}
+ && curl -L -o ./${TESSERACT_MODEL} https://github.com/tesseract-ocr/tessdata/raw/master/por.traineddata \
+ && curl -L -o ./${TESSERACT_MODEL} https://github.com/tesseract-ocr/tessdata/raw/master/eng.traineddata \
 
 # build and install opencv
 RUN cd opencv-4.1.0 \
@@ -95,8 +107,8 @@ RUN cd ./tesseract-master \
 RUN pip3 install pytesseract pillow
 
 # Download english tesseract model
-ADD ./por.traineddata /usr/local/share/tessdata/
-ADD ./eng.traineddata /usr/local/share/tessdata/
+RUN mv ./por.traineddata /usr/local/share/tessdata/ \
+ && mv ./eng.traineddata /usr/local/share/tessdata/
 
 RUN apt-get purge -y $BUILD_PACKAGES $EXTRA_BUILD_PACKAGES \
        $BUILD_PACKAGES2 $EXTRA_PACKAGES \
