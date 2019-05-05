@@ -46,4 +46,4 @@ if [ ! -f ././${OPENCV_CONTRIB} ]; then
 fi
 
 echo "building docker container"
-docker build --squash -t "myocr-id-cnh"  .
+docker build --squash -t "gregoriomomm/py3-ocr"  .
