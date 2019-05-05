@@ -55,8 +55,9 @@ ARG EXTRA_PACKAGES="autotools-dev \
 RUN apt-get update \
  && apt-get upgrade  -y \
  && apt-get install -y --no-install-recommends $BUILD_PACKAGES1 $BUILD_PACKAGES2 \ 
- && apt-get install -y --no-install-recommends python3.6-dev python3-pip \
- && pip3 install --upgrade pip \
+ && apt-get install -y --no-install-recommends python3.6-dev python3-pip 
+ 
+RUN pip3 install --upgrade pip \
  && pip3 install numpy scipy setuptools
 
 RUN mkdir -p /tmp/workdir
