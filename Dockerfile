@@ -84,7 +84,7 @@ RUN cd opencv-4.1.0 \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
     -D INSTALL_C_EXAMPLES=OFF \
     -D INSTALL_PYTHON_EXAMPLES=OFF \
-    -D OPENCV_EXTRA_MODULES_PATH=./opencv_contrib-4.1.0/modules \
+    -D OPENCV_EXTRA_MODULES_PATH=/tmp/workdir/opencv_contrib-4.1.0/modules \
     -D BUILD_EXAMPLES=OFF .. \
     && make -j2 \
     && make install \
