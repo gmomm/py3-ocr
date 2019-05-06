@@ -58,7 +58,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends python3.6-dev python3-pip 
  
 RUN pip3 install --upgrade pip 
-RUN pip3 install numpy scipy setuptools imutils
+RUN pip3 install numpy scipy setuptools 
 
 RUN mkdir -p /tmp/workdir
 WORKDIR /tmp/workdir
@@ -105,7 +105,7 @@ RUN cd ./tesseract-master \
     && make install \
     && ldconfig
 
-RUN pip3 install pytesseract pillow
+RUN pip3 install pytesseract pillow imutils
 
 # Download english tesseract model
 RUN mv ./por.traineddata /usr/local/share/tessdata/ \
