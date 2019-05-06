@@ -58,7 +58,7 @@ RUN apt-get update \
  && apt-get install -y --no-install-recommends python3.6-dev python3-pip 
  
 RUN pip3 install --upgrade pip 
-RUN pip3 install numpy scipy setuptools
+RUN pip3 install numpy scipy setuptools imutils
 
 RUN mkdir -p /tmp/workdir
 WORKDIR /tmp/workdir
