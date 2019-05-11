@@ -90,11 +90,7 @@ def four_point_transform(image, pts):
     return warped
 
 ##(1) read into  bgr-space
-#image = cv2.imread("./cnh/0000229005335348035291076304670271.tif")
-#image = cv2.imread("./cnh/0008900000535576002339302504670271.tif")
-#image = cv2.imread("./cnh/0000682008998691668814587104670271.tif")
-
-image = cv2.imread("./cnh/0003048004174180485339480004670271.tif")
+image = cv2.imread("./cnh.tif")
 
 img3 = image.copy()
 img3 = cv2.cvtColor(image, cv2.COLOR_BGR2RGB )
