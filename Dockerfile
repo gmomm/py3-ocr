@@ -106,6 +106,7 @@ RUN cd ./tesseract-master \
     && ldconfig
 
 RUN pip3 install pytesseract pillow imutils
+RUN pip3 install nltk pandas beautifulsoup4 ibm-watson
 
 # Download english tesseract model
 RUN mv ./por.traineddata /usr/local/share/tessdata/ \
